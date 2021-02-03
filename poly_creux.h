@@ -1,13 +1,12 @@
-typedef struct {
-    int nb_degree;
-    p_element* elements;
-} polyf_creux_t, *p_polyf_creux_t;
-
 typedef struct{
     int degree;
     int coeff;
 }element, *p_element;
 
+typedef struct {
+    int nb_degree;
+    p_element* elements;
+} polyf_creux_t, *p_polyf_creux_t;
 
 p_polyf_t creer_polynome (int degre) ;
 
