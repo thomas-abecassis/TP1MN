@@ -6,7 +6,7 @@
 
 int main (int argc, char **argv)
 {
-  p_polyf_t p1, p2 ;
+  p_polyf_t p1, p2, p3 ;
   
   if (argc != 3)
     {
@@ -22,6 +22,9 @@ int main (int argc, char **argv)
 
   printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
   printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
+
+  p3 = puissance_polynome(p1, 2);
+  ecrire_polynome_float(p3);
 
   /*
     ajouter du code pour tester les fonctions
