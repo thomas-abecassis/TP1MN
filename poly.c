@@ -133,7 +133,7 @@ p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 {
   p_polyf_t p2=creer_polynome(p->degre);
   for(int i=0; i<=p->degre;i++){
-    p2->coeff[i]=p->coeff[i];
+    p2->coeff[i]=p->coeff[i]*alpha;
     
   }
 
