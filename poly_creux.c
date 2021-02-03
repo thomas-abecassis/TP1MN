@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "poly.h"
+#include "poly_creux.h"
 
 #include <x86intrin.h>
 #include <math.h>
@@ -10,14 +10,14 @@ p_polyf_creux_t creer_polynome (int degre)
   
 }
 
-void detruire_polynome (p_polyf_t p)
+void detruire_polynome (p_polyf_creux_t p)
 {
   
 
   return ;
 }
 
-void init_polynome (p_polyf_t p, float x)
+void init_polynome (p_polyf_creux_t p, float x)
 {
   register unsigned int i ;
 
@@ -32,7 +32,7 @@ void init_polynome (p_polyf_t p, float x)
 p_polyf_creux_t lire_polynome_float (char *nom_fichier)
 {
   FILE *f ;
-  p_polyf_t p ;
+  p_polyf_creux_t p ;
   int degre ;
   int i  ;
   int cr ;
@@ -68,32 +68,32 @@ p_polyf_creux_t lire_polynome_float (char *nom_fichier)
   return p ;
 }
 
-void ecrire_polynome_float (p_polyf_t p)
+void ecrire_polynome_float (p_polyf_creux_t p)
 {
   
 
   return ;
 }
 
-int egalite_polynome (p_polyf_t p1, p_polyf_t p2)
+int egalite_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
   
   return 0;
 }
 
-p_polyf_creux_t addition_polynome (p_polyf_t p1, p_polyf_t p2)
+p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
   return NULL;
 }
 
-p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
+p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_creux_t p, float alpha)
 {
   
 
   return NULL ;
 }
 
-float eval_polynome (p_polyf_t p, float x)
+float eval_polynome (p_polyf_creux_t p, float x)
 {
 
   float resultat=0;
@@ -105,14 +105,14 @@ float eval_polynome (p_polyf_t p, float x)
 }
 
 
-p_polyf_creux_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
+p_polyf_creux_t multiplication_polynomes (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
   
 
   return NULL;
 }
 
-p_polyf_creux_t puissance_polynome (p_polyf_t p, int n)
+p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)
 {
   /* 
      p^n
@@ -121,7 +121,7 @@ p_polyf_creux_t puissance_polynome (p_polyf_t p, int n)
   return NULL ;
 }
 
-p_polyf_creux_t composition_polynome (p_polyf_t p, p_polyf_t q)
+p_polyf_creux_t composition_polynome (p_polyf_creux_t p, p_polyf_creux_t q)
 {
   
 
