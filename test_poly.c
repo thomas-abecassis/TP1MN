@@ -21,6 +21,7 @@ int main (int argc, char **argv)
   ecrire_polynome_float (p2) ;
 
   printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
+  printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
 
   /*
     ajouter du code pour tester les fonctions

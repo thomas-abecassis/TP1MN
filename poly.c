@@ -4,6 +4,7 @@
 #include "poly.h"
 
 #include <x86intrin.h>
+#include <math.h>
 
 p_polyf_t creer_polynome (int degre)
 {
@@ -138,11 +139,13 @@ p_polyf_t multiplication_polynome_scalaire (p_polyf_t p, float alpha)
 
 float eval_polynome (p_polyf_t p, float x)
 {
-  /* 
-     valeur du polynome pour la valeur de x
-  */
 
-  return 0.0 ;
+  float resultat=0;
+
+  for(int i=0; i<p->degre+1; i++){
+    resultat+= p->coeff[i] * pow(x, i);
+  }
+  return resultat;
 }
 
 p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
