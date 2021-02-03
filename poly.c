@@ -173,7 +173,11 @@ p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
   return new_p ;
 }
 
-p_polyf_t puissance_polynome (p_polyf_t p, int n){}
+p_polyf_t puissance_polynome (p_polyf_t p, int n){
+  if(n==1)
+    return p;
+  return multiplication_polynomes(p, puissance_polynome(p, n-1));
+}
 
 p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
 {
