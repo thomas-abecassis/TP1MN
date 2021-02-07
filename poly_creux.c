@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "poly.h"
+#include "poly_creux.h"
 
 #include <x86intrin.h>
 #include <math.h>
@@ -32,7 +32,7 @@ void init_polynome (p_polyf_creux_t p, float x)
 p_polyf_creux_t lire_polynome_float (char *nom_fichier)
 {
   FILE *f ;
-  p_polyf_t p ;
+  p_polyf_creux_t p ;
   int degre ;
   int i  ;
   int cr ;
