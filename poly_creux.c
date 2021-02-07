@@ -28,51 +28,13 @@ void init_polynome (p_polyf_creux_t p, float x)
 {
   register unsigned int i ;
 
-  for (i = 0 ; i <= p->nbDegree; ++i)
+  for (i = 0 ; i <= p->nbDegree; ++i){
+    p->elements[i] = malloc(sizeof(struct element));
     p->elements[i]->coeff = x ;
+    p->element[i]->degre=i;
+  }
 
   return ;
-}
-
-
-
-p_polyf_creux_t lire_polynome_float (char *nom_fichier)
-{
-  FILE *f ;
-  p_polyf_creux_t p ;
-  int degre ;
-  int i  ;
-  int cr ;
-  
-  f = fopen (nom_fichier, "r") ;
-  if (f == NULL)
-    {
-      fprintf (stderr, "erreur ouverture %s \n", nom_fichier) ;
-      exit (-1) ;
-    }
-  
-  cr = fscanf (f, "%d", &degre) ;
-  if (cr != 1)
-    {
-      fprintf (stderr, "erreur lecture du degre\n") ;
-      exit (-1) ;
-    }
-  p = creer_polynome (degre) ;
-  
-  for (i = 0 ; i <= degre; i++)
-    { 
-      cr = fscanf (f, "%f", &p->coeff[i]) ;
-       if (cr != 1)
-    {
-      fprintf (stderr, "erreur lecture coefficient %d\n", i) ;
-      exit (-1) ;
-    }
-       
-    }
-
-  fclose (f) ;
-
-  return p ;
 }
 
 void ecrire_polynome_float (p_polyf_creux_t p)
@@ -84,8 +46,13 @@ void ecrire_polynome_float (p_polyf_creux_t p)
 
 int egalite_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
-  
-  return 0;
+  if(p1->nbDegree != p2->nbDegree)
+    return 0;
+  for(int i=0; i<p1->nbDegree+1; i++){
+    if(p1->elements[i]->degre != p2->elements[i]->degre || p1->elements[i]->coeff != p2->elements[i]->coeff)
+      return 0;
+  }
+  return 1;
 }
 
 p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
