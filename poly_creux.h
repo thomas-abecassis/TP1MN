@@ -1,10 +1,10 @@
 typedef struct{
-    int degree;
-    int coeff;
+    int degre;
+    float coeff;
 }element, *p_element;
 
-typedef struct {
-    int nb_degree;
+typedef struct{
+    int nb_degre;
     p_element* elements;
 } polyf_creux_t, *p_polyf_creux_t;
 

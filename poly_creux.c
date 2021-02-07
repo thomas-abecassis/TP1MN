@@ -5,9 +5,16 @@
 
 #include <x86intrin.h>
 #include <math.h>
-p_polyf_creux_t creer_polynome (int degre)
+p_polyf_creux_t creer_polynome (int nbDegree)
 {
+  p_polyf_creux_t p ;
   
+  p = (p_polyf_creux_t) malloc (sizeof (p_polyf_creux_t)) ;
+  p->nbDegree = nbDegree ;
+
+  p->elements = (float *) malloc ((nbDegree+1) * sizeof (struct element))  ;
+
+  return p ;
 }
 
 void detruire_polynome (p_polyf_creux_t p)
@@ -21,8 +28,8 @@ void init_polynome (p_polyf_creux_t p, float x)
 {
   register unsigned int i ;
 
-  for (i = 0 ; i <= p->degre; ++i)
-    p->coeff [i] = x ;
+  for (i = 0 ; i <= p->nbDegree; ++i)
+    p->elements[i]->coeff = x ;
 
   return ;
 }
