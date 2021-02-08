@@ -6,28 +6,21 @@
 
 int main (int argc, char **argv)
 {
-  p_polyf_t p1, p2, p3 ;
-  
-  if (argc != 3)
-    {
-      fprintf (stderr, "deux paramètres (polynomes,fichiers) sont à passer \n") ;
-      exit (-1) ;
-    }
-      
-  p1 = lire_polynome_float (argv [1]) ;
-  p2 = lire_polynome_float (argv [2]) ;
+  p_polyf_creux_t p1, p2;
 
-  ecrire_polynome_float (p1) ;
-  ecrire_polynome_float (p2) ;
+    //d'abord on créer des tableaux pour créer les polynomes
+    int* degres = malloc(sizeof(int)*3);
+    degres[0] = 1; degres[1] = 2; degres[2] = 3;
+    float* coeffs = malloc(sizeof(float)*3);
+    coeffs[0] = 5; coeffs[1] = 5; coeffs[2] = 5;
 
-  printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
-  printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
+    float* coeffs2 = malloc(sizeof(float)*3);
+    coeffs2[0] = 5; coeffs2[1] = 6; coeffs2[2] = 5;
 
-  p3 = puissance_polynome(p1, 2);
-  ecrire_polynome_float(p3);
+    p1 = creer_polynome_tab(3,degres,coeffs);
+    p2 = creer_polynome_tab(3,degres,coeffs2);
 
-  /*
-    ajouter du code pour tester les fonctions
-    sur les polynomes
-  */
+
+    printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
+
 }

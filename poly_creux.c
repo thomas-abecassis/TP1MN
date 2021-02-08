@@ -6,23 +6,23 @@
 #include <x86intrin.h>
 #include <math.h>
 
-p_polyf_creux_t creer_polynome (int nbDegree)
+p_polyf_creux_t creer_polynome (int nb_degre)
 {
   p_polyf_creux_t p ;
   
   p = (p_polyf_creux_t) malloc (sizeof (p_polyf_creux_t)) ;
-  p->nbDegree = nbDegree ;
+  p->nb_degre = nb_degre ;
 
-  p->elements = (float *) malloc ((nbDegree+1) * sizeof (struct element))  ;
-
+  p->elements = (p_element *) malloc ((nb_degre) * sizeof (p_element))  ;
   return p ;
 }
 
-//pré-requis : les tableaux degres et coeffs de taille nbDegre
-p_polyf_creux_t creer_polynome_tab (int nbDegre, int* degres, float* coeffs){
-   p_polyf_creux_t p = creer_polynome(nbDegre);
+//pré-requis : les tableaux degres et coeffs de taille nb_degre
+p_polyf_creux_t creer_polynome_tab (int nb_degre, int* degres, float* coeffs){
+   p_polyf_creux_t p = creer_polynome(nb_degre);
+   init_polynome(p,1);
 
-   for(int i=0; i<nbDegre; i++){
+   for(int i=0; i<nb_degre; i++){
      p->elements[i]->degre=degres[i];
      p->elements[i]->coeff=coeffs[i];
    }
@@ -41,10 +41,10 @@ void init_polynome (p_polyf_creux_t p, float x)
 {
   register unsigned int i ;
 
-  for (i = 0 ; i <= p->nbDegree; ++i){
-    p->elements[i] = malloc(sizeof(struct element));
+  for (i = 0 ; i <= p->nb_degre; ++i){
+    p->elements[i] = malloc(sizeof(element));
     p->elements[i]->coeff = x ;
-    p->element[i]->degre=i;
+    p->elements[i]->degre=i;
   }
 
   return ;
@@ -59,9 +59,9 @@ void ecrire_polynome_float (p_polyf_creux_t p)
 
 int egalite_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
-  if(p1->nbDegree != p2->nbDegree)
+  if(p1->nb_degre != p2->nb_degre)
     return 0;
-  for(int i=0; i<p1->nbDegree+1; i++){
+  for(int i=0; i<p1->nb_degre; i++){
     if(p1->elements[i]->degre != p2->elements[i]->degre || p1->elements[i]->coeff != p2->elements[i]->coeff)
       return 0;
   }
@@ -82,13 +82,7 @@ p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_creux_t p, float alpha
 
 float eval_polynome (p_polyf_creux_t p, float x)
 {
-
-  float resultat=0;
-
-  for(int i=0; i<p->degre+1; i++){
-    resultat+= p->coeff[i] * pow(x, i);
-  }
-  return NULL;
+  return 0; 
 }
 
 
