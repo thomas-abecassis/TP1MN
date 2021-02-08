@@ -14,13 +14,17 @@ p_polyf_creux_t creer_polynome (int nb_degre)
   p->nb_degre = nb_degre ;
 
   p->elements = (p_element *) malloc ((nb_degre) * sizeof (p_element))  ;
+
+  for (int i = 0 ; i <= p->nb_degre; ++i){
+    p->elements[i] = malloc(sizeof(element));
+  }
+
   return p ;
 }
 
 //pré-requis : les tableaux degres et coeffs de taille nb_degre
 p_polyf_creux_t creer_polynome_tab (int nb_degre, int* degres, float* coeffs){
    p_polyf_creux_t p = creer_polynome(nb_degre);
-   init_polynome(p,1);
 
    for(int i=0; i<nb_degre; i++){
      p->elements[i]->degre=degres[i];
@@ -42,7 +46,6 @@ void init_polynome (p_polyf_creux_t p, float x)
   register unsigned int i ;
 
   for (i = 0 ; i <= p->nb_degre; ++i){
-    p->elements[i] = malloc(sizeof(element));
     p->elements[i]->coeff = x ;
     p->elements[i]->degre=i;
   }
@@ -94,8 +97,6 @@ float eval_polynome (p_polyf_creux_t p, float x)
 
 p_polyf_creux_t multiplication_polynomes (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
-  
-
   return NULL;
 }
 
