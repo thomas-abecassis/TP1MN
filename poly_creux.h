@@ -10,6 +10,8 @@ typedef struct{
 
 p_polyf_creux_t creer_polynome (int degre) ;
 
+p_polyf_creux_t creer_polynome_tab (int nbDegre, int* degres, float* coeffs) ;
+
 void init_polynome (p_polyf_creux_t p, float x) ;
 
 void detruire_polynome (p_polyf_creux_t p) ;

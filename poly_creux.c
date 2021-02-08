@@ -5,6 +5,7 @@
 
 #include <x86intrin.h>
 #include <math.h>
+
 p_polyf_creux_t creer_polynome (int nbDegree)
 {
   p_polyf_creux_t p ;
@@ -16,6 +17,18 @@ p_polyf_creux_t creer_polynome (int nbDegree)
 
   return p ;
 }
+
+//pré-requis : les tableaux degres et coeffs de taille nbDegre
+p_polyf_creux_t creer_polynome_tab (int nbDegre, int* degres, float* coeffs){
+   p_polyf_creux_t p = creer_polynome(nbDegre);
+
+   for(int i=0; i<nbDegre; i++){
+     p->elements[i]->degre=degres[i];
+     p->elements[i]->coeff=coeffs[i];
+   }
+   return p;
+}
+
 
 void detruire_polynome (p_polyf_creux_t p)
 {
