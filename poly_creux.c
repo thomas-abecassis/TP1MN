@@ -82,7 +82,13 @@ p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_creux_t p, float alpha
 
 float eval_polynome (p_polyf_creux_t p, float x)
 {
-  return 0; 
+
+  float resultat=0;
+
+  for(int i=0; i<p->nb_degre; i++){
+    resultat+= p->elements[i]->coeff * pow(x, p->elements[i]->degre);
+  }
+  return resultat; 
 }
 
 
