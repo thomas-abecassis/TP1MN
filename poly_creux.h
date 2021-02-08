@@ -14,8 +14,6 @@ void init_polynome (p_polyf_creux_t p, float x) ;
 
 void detruire_polynome (p_polyf_creux_t p) ;
 
-p_polyf_creux_t lire_polynome_float (char *nom_fichier) ;
-
 void ecrire_polynome_float (p_polyf_creux_t p) ;
 
 int egalite_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2) ;
