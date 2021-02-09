@@ -64,6 +64,7 @@ void ecrire_polynome_float (p_polyf_creux_t p)
   for (int i=1;i<p->nb_degre;i++){
     printf("+ %f * X^%d",p->elements[i]->coeff,p->elements[i]->degre);
   }
+  printf("\n");
 
   return ;
 }
@@ -181,12 +182,19 @@ p_polyf_creux_t multiplication_polynomes (p_polyf_creux_t p1, p_polyf_creux_t p2
 
   for(int i=0; i<p1->nb_degre; i++){
     for(int j=0; j<p2->nb_degre; j++){
-      if(!degrePresentElements(p1->elements[i]->degre+p2->elements[j]->degre, nbTab, nbElt)){
+      int degreAddition = p1->elements[i]->degre+p2->elements[j]->degre;
+      if(!degrePresentElements(degreAddition, nbTab, nbElt)){
         nbElt++;
         nbTab = (p_element*) realloc(nbTab, sizeof(p_element)*nbElt);
         nbTab[nbElt-1]=malloc(sizeof(element));
-        nbTab[nbElt-1]->degre=p1->elements[i]->degre+p2->elements[j]->degre;
-        nbTab[nbElt-1]->coeff=p1->elements[i]->coeff+p2->elements[j]->coeff;
+        nbTab[nbElt-1]->degre=degreAddition;
+        nbTab[nbElt-1]->coeff=p1->elements[i]->coeff*p2->elements[j]->coeff;
+      }
+      else{
+        for(int k=0; k<nbElt; k++){
+          if(nbTab[k]->degre==degreAddition)
+            nbTab[k]->coeff+=p1->elements[i]->coeff*p2->elements[j]->coeff;
+        }
       }
     }
   }
