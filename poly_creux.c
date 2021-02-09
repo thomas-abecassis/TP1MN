@@ -181,19 +181,6 @@ float eval_polynome (p_polyf_creux_t p, float x)
   return resultat; 
 }
 
-p_element* copieTabElements(p_polyf_creux_t p1){
-  p_element* copieAr =(p_element *) malloc ((p1->nb_degre) * sizeof (p_element));
-  for (int i = 0 ; i <= p1->nb_degre; ++i){
-    copieAr[i] = malloc(sizeof(element));
-  }
-
-  for (int i = 0 ; i <= p1->nb_degre; ++i){
-    copieAr[i]->coeff = p1->elements[i]->coeff;
-    copieAr[i]->degre= p1->elements[i]->degre;
-  }
-
-  return copieAr;
-}
 
 int degrePresentElements(int degreCherche, p_element* elements, int nbElements){
   for(int i=0; i<nbElements; i++){
