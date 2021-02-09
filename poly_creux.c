@@ -208,9 +208,8 @@ p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)
 
 p_polyf_creux_t composition_polynome (p_polyf_creux_t p, p_polyf_creux_t q)
 {
-  
-
-
+  p_polyf_creux_t new_p;
+  for(int i=0;i<=p->nb_degre;)
   return NULL;
 }
 

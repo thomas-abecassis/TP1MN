@@ -155,6 +155,7 @@ float eval_polynome (p_polyf_t p, float x)
 
 p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 {
+  
   p_polyf_t new_p=creer_polynome(p1->degre+p2->degre);
   for(int i=0;i<=new_p->degre;i++){
     new_p->coeff[i]=0;
@@ -175,6 +176,12 @@ p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 }
 
 p_polyf_t puissance_polynome (p_polyf_t p, int n){
+  if(n==0){
+    p_polyf_t q;
+    q=creer_polynome(0);
+    q->coeff[0]=1;
+    return q;
+  }
   if(n==1)
     return p;
   return multiplication_polynomes(p, puissance_polynome(p, n-1));
@@ -186,11 +193,13 @@ p_polyf_t composition_polynome (p_polyf_t p, p_polyf_t q)
   for(int i=0;i<=new_p->degre;i++){
     new_p->coeff[i]=0;
   }
+  ecrire_polynome_float(new_p);
   for(int i=0;i<=p->degre;i++){
     p_polyf_t a_sup=puissance_polynome(q,i);
     a_sup=multiplication_polynome_scalaire(a_sup,p->coeff[i]);
     new_p=addition_polynome(new_p,a_sup);
     detruire_polynome(a_sup);
+    
 
   }
 
