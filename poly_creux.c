@@ -151,26 +151,50 @@ float eval_polynome (p_polyf_creux_t p, float x)
   return resultat; 
 }
 
+p_element* copieTabElements(p_polyf_creux_t p1){
+  p_element* copieAr =(p_element *) malloc ((p1->nb_degre) * sizeof (p_element));
+  for (int i = 0 ; i <= p1->nb_degre; ++i){
+    copieAr[i] = malloc(sizeof(element));
+  }
+
+  for (int i = 0 ; i <= p1->nb_degre; ++i){
+    copieAr[i]->coeff = p1->elements[i]->coeff;
+    copieAr[i]->degre= p1->elements[i]->degre;
+  }
+
+  return copieAr;
+}
+
+int degrePresentElements(int degreCherche, p_element* elements, int nbElements){
+  for(int i=0; i<nbElements; i++){
+    if(elements[i]->degre==degreCherche)
+      return 1;
+  }
+
+  return 0;
+}
 
 p_polyf_creux_t multiplication_polynomes (p_polyf_creux_t p1, p_polyf_creux_t p2)
 {
-  p_polyf_creux_t new_p=creer_polynome(p1->nb_degre+p2->nb_degre);
-  for(int i=0;i<=new_p->nb_degre;i++){
-    new_p->elements[i]->coeff=0;
-  }
-  for(int i=0;i<=p1->nb_degre;i++){
-    p_polyf_creux_t a_sup=creer_polynome((p1->nb_degre)+p2->nb_degre);
-    for(int j=0;j<=p2->nb_degre;j++){
-      a_sup->elements[j+i]->coeff=p1->elements[i]->coeff*p2->elements[j]->coeff;
+  p_element* nbTab = (p_element*) malloc(0);
+  int nbElt = 0;
 
+  for(int i=0; i<p1->nb_degre; i++){
+    for(int j=0; j<p2->nb_degre; j++){
+      if(!degrePresentElements(p1->elements[i]->degre+p2->elements[j]->degre, nbTab, nbElt)){
+        nbElt++;
+        nbTab = (p_element*) realloc(nbTab, sizeof(p_element)*nbElt);
+        nbTab[nbElt-1]=malloc(sizeof(element));
+        nbTab[nbElt-1]->degre=p1->elements[i]->degre+p2->elements[j]->degre;
+        nbTab[nbElt-1]->coeff=p1->elements[i]->coeff+p2->elements[j]->coeff;
+      }
     }
-    new_p=addition_polynome(new_p,a_sup);
-    detruire_polynome(a_sup);
-    
-
   }
 
-  return new_p ;
+  p_polyf_creux_t p= malloc(sizeof(polyf_creux_t));
+  p->nb_degre=nbElt;
+  p->elements=nbTab;
+  return p; 
 }
 
 p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)

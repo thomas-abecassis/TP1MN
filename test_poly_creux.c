@@ -20,12 +20,11 @@ int main (int argc, char **argv)
     p1 = creer_polynome_tab(3,degres,coeffs);
     p2 = creer_polynome_tab(3,degres,coeffs2);
 
-    ecrire_polynome_float(p1);
 
     printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
     printf("p1 avec x=2 : %f \n", eval_polynome(p1, 2));
 
     p3 = multiplication_polynomes(p1,p2);
-    //ecrire_polynome_float(p3);
+    ecrire_polynome_float(p3);
 
 }
