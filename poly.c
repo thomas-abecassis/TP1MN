@@ -155,18 +155,23 @@ float eval_polynome (p_polyf_t p, float x)
 
 p_polyf_t multiplication_polynomes (p_polyf_t p1, p_polyf_t p2)
 {
+  printf("etape0\n");
   p_polyf_t new_p=creer_polynome(p1->degre*p2->degre);
   for(int i=0;i<=new_p->degre;i++){
     new_p->coeff[i]=0;
   }
+  printf("etape1\n");
   for(int i=0;i<p1->degre;i++){
-    p_polyf_t a_sup=creer_polynome(i*p2->degre);
+    p_polyf_t a_sup=creer_polynome((p1->degre-i)*p2->degre);
+    printf("etape 2\n");
     for(int j=0;j<=p2->degre;j++){
-      a_sup->coeff[j]=p1->coeff[i]*p2->coeff[j];
+      a_sup->coeff[j+i]=p1->coeff[i]*p2->coeff[j];
+      printf("etape 3\n");
 
     }
     new_p=addition_polynome(new_p,a_sup);
     detruire_polynome(a_sup);
+    printf("etape 4\n");
 
   }
 
