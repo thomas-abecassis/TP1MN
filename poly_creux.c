@@ -36,7 +36,7 @@ p_polyf_creux_t creer_polynome_tab (int nb_degre, int* degres, float* coeffs){
 
 void detruire_polynome (p_polyf_creux_t p)
 {
-  free(p->element);
+  free(p->elements);
   free(p);
 
   return ;
@@ -56,9 +56,9 @@ void init_polynome (p_polyf_creux_t p, float x)
 
 void ecrire_polynome_float (p_polyf_creux_t p)
 {
-  printf("%f X^%d",p->element[0].coeff,p-element[0].degre);
-  for (int i=1;i<=p->nb_degre,i++){
-    printf("+ %f * X^%d",p->element[i].coeff,p-element[i].degre);
+  printf("%f X^%d",p->elements[0]->coeff,p->elements[0]->degre);
+  for (int i=1;i<=p->nb_degre;i++){
+    printf("+ %f * X^%d",p->elements[i]->coeff,p->elements[i]->degre);
   }
 
   return ;
@@ -82,12 +82,12 @@ p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
   int i1=0;
   int i2=0;
   while(i1!=p1->nb_degre && i2!=p2->nb_degre){
-    if(p1->element[i1].degre==p1->element[i2].degre){
+    if(p1->elements[i1]->degre==p1->elements[i2]->degre){
       nb_degre++;
       i1++;
       i2++;
     }
-    if(p1->element[i1].degre<p1->element[i2].degre){
+    if(p1->elements[i1]->degre<p1->elements[i2]->degre){
       nb_degre++;
       i2++;
     }
@@ -99,25 +99,25 @@ p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
   p_polyf_creux_t p=creer_polynome(nb_degre);
   i1=0;
   i2=0;
-  i=0;
+  int i=0;
   while(i1!=p1->nb_degre && i2!=p2->nb_degre){
-    if(p1->element[i1].degre==p1->element[i2].degre){
-      p->element[i].coeff=p1->element[i1].coeff+p2->element[i2].coeff;
-      p->element[i].degre=p1->element[i1]->degre;
+    if(p1->elements[i1]->degre==p1->elements[i2]->degre){
+      p->elements[i]->coeff=p1->elements[i1]->coeff+p2->elements[i2]->coeff;
+      p->elements[i]->degre=p1->elements[i1]->degre;
       i1++;
       i++;
       i2++;
     }
-    if(p1->element[i1].degre<p1->element[i2].degre){
-      p->element[i].coeff=p2->element[i2].coeff;
-      p->element[i].degre=p2->element[i2].degre;
+    if(p1->elements[i1]->degre<p1->elements[i2]->degre){
+      p->elements[i]->coeff=p2->elements[i2]->coeff;
+      p->elements[i]->degre=p2->elements[i2]->degre;
       i++;
       i2++;
     }
     else{
-      p->element[i].coeff=p1->element[i1].coeff;
-      p->element[i].degre=p1->element[i1].degre;
-      i++
+      p->elements[i]->coeff=p1->elements[i1]->coeff;
+      p->elements[i]->degre=p1->elements[i1]->degre;
+      i++;
       i1++;
     }
   }
@@ -127,9 +127,9 @@ p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_creux_t p, float alpha)
 {
   p_polyf_creux_t new_p=creer_polynome(p->nb_degre);
-  for(int i=0;i<=p->degre;i++){
-    new_p->element[i].coeff=p->element[i].coeff*alpha;
-    new_p->element[i].degre=p->element[i].degre;
+  for(int i=0;i<=p->nb_degre;i++){
+    new_p->elements[i]->coeff=p->elements[i]->coeff*alpha;
+    new_p->elements[i]->degre=p->elements[i]->degre;
   }
   
 
