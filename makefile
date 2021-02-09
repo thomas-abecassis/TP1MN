@@ -21,10 +21,10 @@ poly.o: poly.c poly.h
 test_poly_creux: test_poly_creux.o poly_creux.o
 	gcc -o test_poly_creux test_poly_creux.o poly_creux.o -lm
 
-test_poly.o: test_poly_creux.c poly_creux.h
+test_poly_creux.o: test_poly_creux.c poly_creux.h
 	gcc $(GCC_OPT) -c test_poly_creux.c
 
-poly.o: poly_creux.c poly_creux.h
+poly_creux.o: poly_creux.c poly_creux.h
 	gcc $(GCC_OPT) -c poly_creux.c
 
 clean:
