@@ -23,7 +23,7 @@ int main (int argc, char **argv)
   printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
   printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
 
-  p3 = puissance_polynome(p1, 2);
+  p3 = multiplication_polynomes_scalaire(p1, 2);
   ecrire_polynome_float(p3);
 
   /*
