@@ -20,11 +20,10 @@ int main (int argc, char **argv)
   ecrire_polynome_float (p1) ;
   ecrire_polynome_float (p2) ;
 
-  //printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
-  //printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
+  printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
+  printf("résultat pour p1 avec x=2 ? %f \n", eval_polynome(p1, 2));
 
   p3 = multiplication_polynomes(p1, p2);
-  printf("a");
   ecrire_polynome_float(p3);
 
   /*
