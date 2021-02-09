@@ -199,17 +199,30 @@ p_polyf_creux_t multiplication_polynomes (p_polyf_creux_t p1, p_polyf_creux_t p2
 
 p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)
 {
-  /* 
-     p^n
-  */
-
-  return NULL ;
+  if(n==0){
+    p_polyf_creux_t q;
+    q=creer_polynome(0);
+    q->elements[0]->coeff=1;
+    q->elements[0]->degre=0;
+    return q;
+  }
+  if(n==1)
+    return p;
+  return multiplication_polynomes(p, puissance_polynome(p, n-1));
 }
 
 p_polyf_creux_t composition_polynome (p_polyf_creux_t p, p_polyf_creux_t q)
 {
-  p_polyf_creux_t new_p;
-  for(int i=0;i<=p->nb_degre;)
-  return NULL;
+  p_polyf_creux_t new_p=creer_polynome(0);
+  new_p->elements[0]->coeff=0;
+  new_p->elements[0]->degre=0;
+
+  for(int i=0;i<=p->degre;i++){
+    p_polyf_t a_sup=puissance_polynome(q,i);
+    a_sup=multiplication_polynome_scalaire(a_sup,p->coeff[i]);
+    new_p=addition_polynome(new_p,a_sup);
+    detruire_polynome(a_sup);
+  }
+  return new_p;
 }
 
