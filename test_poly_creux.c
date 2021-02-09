@@ -23,11 +23,15 @@ int main (int argc, char **argv)
 
     printf("sont-ils égaux ? %d \n", egalite_polynome(p1, p2));
     printf("p1 avec x=2 : %f \n", eval_polynome(p1, 2));
+    p_polyf_creux_t new_p=creer_polynome(1);
+  new_p->elements[0]->coeff=1;
+  new_p->elements[0]->degre=0;
 
     ecrire_polynome_float(p1);
     ecrire_polynome_float(p2);
 
-    p3 = multiplication_polynomes(p1,p2);
+    p3 = composition_polynome(p1,p2);
     ecrire_polynome_float(p3);
+
 
 }

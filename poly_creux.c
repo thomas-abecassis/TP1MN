@@ -15,7 +15,7 @@ p_polyf_creux_t creer_polynome (int nb_degre)
 
   p->elements = (p_element *) malloc ((nb_degre) * sizeof (p_element))  ;
 
-  for (int i = 0 ; i <= p->nb_degre; ++i){
+  for (int i = 0 ; i < p->nb_degre; ++i){
     p->elements[i] = malloc(sizeof(element));
   }
 
@@ -87,43 +87,72 @@ p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
   int i1=0;
   int i2=0;
   while(i1!=p1->nb_degre && i2!=p2->nb_degre){
-    if(p1->elements[i1]->degre==p1->elements[i2]->degre){
+    if(p1->elements[i1]->degre==p2->elements[i2]->degre){
       nb_degre++;
       i1++;
       i2++;
-    }
-    if(p1->elements[i1]->degre<p1->elements[i2]->degre){
-      nb_degre++;
-      i2++;
+      
     }
     else{
-      nb_degre++;
-      i1++;
+      if(p1->elements[i1]->degre < p1->elements[i2]->degre){
+        nb_degre++;
+        i2++;
+      }
+      else{
+        nb_degre++;
+        i1++;
+      }
+
     }
   }
+  nb_degre+=(p1->nb_degre-i1)+(p2->nb_degre-i2);
+
+
   p_polyf_creux_t p=creer_polynome(nb_degre);
   i1=0;
   i2=0;
   int i=0;
-  while(i1!=p1->nb_degre && i2!=p2->nb_degre){
-    if(p1->elements[i1]->degre==p1->elements[i2]->degre){
-      p->elements[i]->coeff=p1->elements[i1]->coeff+p2->elements[i2]->coeff;
-      p->elements[i]->degre=p1->elements[i1]->degre;
-      i1++;
-      i++;
-      i2++;
+  for(i=0;i<nb_degre;i++){
+    if(i2==p2->nb_degre){
+      break;
     }
-    if(p1->elements[i1]->degre<p1->elements[i2]->degre){
-      p->elements[i]->coeff=p2->elements[i2]->coeff;
-      p->elements[i]->degre=p2->elements[i2]->degre;
-      i++;
+    if(i1==p1->nb_degre){
+      break;
+    }
+    if(p1->elements[i1]->degre == p2->elements[i2]->degre){
+      p->elements[i]->coeff = p1->elements[i1]->coeff+p2->elements[i2]->coeff;
+      p->elements[i]->degre = p1->elements[i1]->degre;
+      i1++;
       i2++;
     }
     else{
-      p->elements[i]->coeff=p1->elements[i1]->coeff;
-      p->elements[i]->degre=p1->elements[i1]->degre;
+      if(p1->elements[i1]->degre > p2->elements[i2]->degre){
+      p->elements[i]->coeff = p2->elements[i2]->coeff;
+      p->elements[i]->degre = p2->elements[i2]->degre;
+      i2++;
+      }
+      else{
+        if(p1->elements[i1]->degre < p2->elements[i2]->degre){
+          p->elements[i]->coeff = p1->elements[i1]->coeff;
+          p->elements[i]->degre = p1->elements[i1]->degre;
+          i1++;
+          }
+      }
+    }
+    
+  }
+  if(i2==p2->nb_degre){
+    for(int j=i1;j<p1->nb_degre;j++){
+      p->elements[i]->coeff = p1->elements[j]->coeff;
+      p->elements[i]->degre = p1->elements[j]->degre;
       i++;
-      i1++;
+    }
+  }
+  if(i1==p1->nb_degre){
+    for(int j=i2;j<p2->nb_degre;j++){
+      p->elements[i]->coeff = p2->elements[j]->coeff;
+      p->elements[i]->degre = p2->elements[j]->degre;
+      i++;
     }
   }
   return p;
@@ -132,7 +161,7 @@ p_polyf_creux_t addition_polynome (p_polyf_creux_t p1, p_polyf_creux_t p2)
 p_polyf_creux_t multiplication_polynome_scalaire (p_polyf_creux_t p, float alpha)
 {
   p_polyf_creux_t new_p=creer_polynome(p->nb_degre);
-  for(int i=0;i<=p->nb_degre;i++){
+  for(int i=0;i<p->nb_degre;i++){
     new_p->elements[i]->coeff=p->elements[i]->coeff*alpha;
     new_p->elements[i]->degre=p->elements[i]->degre;
   }
@@ -209,7 +238,7 @@ p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)
 {
   if(n==0){
     p_polyf_creux_t q;
-    q=creer_polynome(0);
+    q=creer_polynome(1);
     q->elements[0]->coeff=1;
     q->elements[0]->degre=0;
     return q;
@@ -221,15 +250,17 @@ p_polyf_creux_t puissance_polynome (p_polyf_creux_t p, int n)
 
 p_polyf_creux_t composition_polynome (p_polyf_creux_t p, p_polyf_creux_t q)
 {
-  p_polyf_creux_t new_p=creer_polynome(0);
+  p_polyf_creux_t new_p=creer_polynome(1);
   new_p->elements[0]->coeff=0;
   new_p->elements[0]->degre=0;
 
-  for(int i=0;i<=p->degre;i++){
-    p_polyf_t a_sup=puissance_polynome(q,i);
-    a_sup=multiplication_polynome_scalaire(a_sup,p->coeff[i]);
+  for(int i=0;i<p->nb_degre;i++){   
+    ecrire_polynome_float(new_p); 
+    p_polyf_creux_t a_sup=puissance_polynome(q,i);
+    a_sup=multiplication_polynome_scalaire(a_sup,p->elements[i]->coeff);
     new_p=addition_polynome(new_p,a_sup);
     detruire_polynome(a_sup);
+
   }
   return new_p;
 }
